@@ -71,7 +71,7 @@ class GroundStreet extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Icon(Icons.call, 'CALL')
+              Icon(Icons.call,),
             ],
           )
         ],
