@@ -17,16 +17,16 @@ class Strawberry extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Strawberry pavlova'),
+          title: Text('Strawberry Pavlova'),
         ),
         body: SingleChildScrollView( // Wrap everything inside the SingleChildScrollView
           child: Column(
             children: [
               // Image at the top
               Image.asset(
-                'assets/straw.jpg',
-                width: 400,
-                height: 250,
+                'assets/straw.jpg', // Ensure the image is in the correct directory
+                width: double.infinity,  // Take up full width
+                height: 250,  // Fixed height
                 fit: BoxFit.cover,
               ),
               // Padding and widgets below the image
