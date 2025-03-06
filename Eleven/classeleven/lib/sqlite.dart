@@ -43,7 +43,7 @@ Future<Database> getDatabase() async {
         'doggie_database.db'),
     onCreate: (db, version) {
       return db.execute(
-          'CREATE TABLE dogs(id INTEGER PRIMARY KEY, name TEXT, age INTEGER)',
+        'CREATE TABLE dogs(id INTEGER PRIMARY KEY, name TEXT, age INTEGER)',
       );
     },
     version: 1,
