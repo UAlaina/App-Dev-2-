@@ -1,0 +1,19 @@
+{
+  "items": [
+    {
+      "id": "product 1",
+      "name": "Apple Laptop",
+      "Description": "Expensive one"
+    },
+    {
+      "id": "product 2",
+      "name": "Apple Mobile",
+      "Description": "Efficient Device"
+    },
+    {
+      "id": "product 3",
+      "name": "Unix System",
+      "Description": "Reliable  OS"
+    }
+  ]
+}
