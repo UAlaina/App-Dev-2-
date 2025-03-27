@@ -1,0 +1,226 @@
+import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'SQLite CRUD App',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: UserListScreen(),
+    );
+  }
+}
+
+// User model
+class User {
+  int? id;
+  String name;
+  String phone;
+
+  User({this.id, required this.name, required this.phone});
+
+  Map<String, dynamic> toMap() {
+    return {'id': id, 'name': name, 'phone': phone};
+  }
+
+  factory User.fromMap(Map<String, dynamic> map) {
+    return User(
+      id: map['id'],
+      name: map['name'],
+      phone: map['phone'],
+    );
+  }
+}
+
+// Database Helper
+class DatabaseHelper {
+  static final DatabaseHelper instance = DatabaseHelper._init();
+  static Database? _database;
+
+  DatabaseHelper._init();
+
+  Future<Database> get database async {
+    if (_database != null) return _database!;
+    _database = await _initDB('user.db');
+    return _database!;
+  }
+
+  Future<Database> _initDB(String filePath) async {
+    final dbPath = await getDatabasesPath();
+    final path = join(dbPath, filePath);
+    return await openDatabase(path, version: 1, onCreate: _createDB);
+  }
+
+  Future<void> _createDB(Database db, int version) async {
+    await db.execute('''
+      CREATE TABLE users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        phone TEXT NOT NULL
+      )
+    ''');
+  }
+
+  Future<User> createUser(User user) async {
+    final db = await instance.database;
+    final id = await db.insert('users', user.toMap());
+    return user.copyWith(id: id);
+  }
+
+  Future<List<User>> readAllUsers() async {
+    final db = await instance.database;
+    final result = await db.query('users', orderBy: 'id ASC');
+    return result.map((json) => User.fromMap(json)).toList();
+  }
+
+  Future<int> updateUser(User user) async {
+    final db = await instance.database;
+    return db.update(
+      'users',
+      user.toMap(),
+      where: 'id = ?',
+      whereArgs: [user.id],
+    );
+  }
+
+  Future<int> deleteUser(int id) async {
+    final db = await instance.database;
+    return db.delete(
+      'users',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+}
+
+// User List Screen
+class UserListScreen extends StatefulWidget {
+  @override
+  _UserListScreenState createState() => _UserListScreenState();
+}
+
+class _UserListScreenState extends State<UserListScreen> {
+  List<User> _users = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _refreshUserList();
+  }
+
+  Future<void> _refreshUserList() async {
+    final users = await DatabaseHelper.instance.readAllUsers();
+    setState(() {
+      _users = users;
+    });
+  }
+
+  void _showUserDialog({User? user}) {
+    final nameController = TextEditingController(text: user?.name ?? '');
+    final phoneController = TextEditingController(text: user?.phone ?? '');
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        title: Text(user == null ? 'Create User' : 'Edit User'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: nameController,
+              decoration: InputDecoration(labelText: 'Name'),
+            ),
+            SizedBox(height: 10),
+            TextField(
+              controller: phoneController,
+              decoration: InputDecoration(labelText: 'Phone'),
+              keyboardType: TextInputType.phone,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final newUser = User(
+                id: user?.id,
+                name: nameController.text,
+                phone: phoneController.text,
+              );
+
+              if (user == null) {
+                await DatabaseHelper.instance.createUser(newUser);
+              } else {
+                await DatabaseHelper.instance.updateUser(newUser);
+              }
+
+              _refreshUserList();
+              Navigator.of(context).pop();
+            },
+            child: Text(user == null ? 'Save' : 'Update'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('User Management')),
+      body: ListView.builder(
+        itemCount: _users.length,
+        itemBuilder: (context, index) {
+          final user = _users[index];
+          return ListTile(
+            leading: CircleAvatar(child: Text(user.name[0])),
+            title: Text(user.name),
+            subtitle: Text(user.phone),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.edit, color: Colors.blue),
+                  onPressed: () => _showUserDialog(user: user),
+                ),
+                IconButton(
+                  icon: Icon(Icons.delete, color: Colors.red),
+                  onPressed: () async {
+                    await DatabaseHelper.instance.deleteUser(user.id!);
+                    _refreshUserList();
+                  },
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _showUserDialog(),
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+// Extension to copy User with updated fields
+extension UserExtension on User {
+  User copyWith({int? id, String? name, String? phone}) {
+    return User(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      phone: phone ?? this.phone,
+    );
+  }
+}
