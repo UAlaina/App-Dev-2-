@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1075562597213",
+    "project_id": "winter2025session",
+    "storage_bucket": "winter2025session.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1075562597213:android:aff2bce8deba9ebd7076b4",
+        "android_client_info": {
+          "package_name": "com.example.firebasedemo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABDH7wc0pjORwPa_GvLtG1Aur797SMuD4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
