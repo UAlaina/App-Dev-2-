@@ -1,0 +1,3 @@
+firestore is important for the exam
+
+its like a quiz when i click one of the multiple choic equestion it should show me a next button and also show if its right or wrong so i can go to the next page, and at the end depending on the answers we have to tell how many are right
