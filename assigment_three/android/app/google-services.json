@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "696675031357",
+    "project_id": "assignmentthree3",
+    "storage_bucket": "assignmentthree3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696675031357:android:cc9bf7c39153a6e39a8d54",
+        "android_client_info": {
+          "package_name": "com.example.assigment_three"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBS1xb0TOYQTi7cgHalKK9f7JsdpBAGBR8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
