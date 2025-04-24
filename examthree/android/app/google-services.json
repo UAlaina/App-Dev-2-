@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "902814138968",
+    "project_id": "phonebook-15aae",
+    "storage_bucket": "phonebook-15aae.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902814138968:android:00bde89914b4b7d586802d",
+        "android_client_info": {
+          "package_name": "com.example.examthree"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVXgvpbEzA0T-1156iI3tOqRQUuEvQ0Uk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
