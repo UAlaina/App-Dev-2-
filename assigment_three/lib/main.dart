@@ -21,6 +21,7 @@ class AssignmentApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Assignment 3',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: HomePage(),
@@ -82,9 +83,7 @@ class HomePage extends StatelessWidget {
               leading: Icon(Icons.lock),
               title: Text('Log Out'),
               onTap: () {
-                // Implement log-out functionality here
-                Navigator.pop(context); // Temporarily close the drawer
-                // You can navigate back to a login screen here, if needed.
+                Navigator.pop(context);
               },
             ),
           ],

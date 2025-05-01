@@ -1,4 +1,4 @@
-name: assigment_three
+name: lastclass
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -30,10 +30,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cloud_firestore: any
   firebase_core: any
-  audioplayers: any
-  intl: any
+  firebase_auth: any
+  google_maps_flutter: any
+  http: any
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -55,17 +56,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-  assets:
-    - assets/audio/note1_Do.wav
-    - assets/audio/note2_Re.wav
-    - assets/audio/note3_Mi.wav
-    - assets/audio/note4_Fa.wav
-    - assets/audio/note5_So.wav
-    - assets/audio/note6_La.wav
-    - assets/images/twisted_game.png
-    - assets/images/twisted_hate.png
-    - assets/images/twisted_lies.png
-    - assets/images/twisted_love.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -78,10 +68,10 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/to/resolution-aware-images
+  # https://flutter.dev/assets-and-images/#resolution-aware
 
   # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/to/asset-from-package
+  # https://flutter.dev/assets-and-images/#from-packages
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
@@ -101,4 +91,4 @@ flutter:
   #         weight: 700
   #
   # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/to/font-from-package
+  # see https://flutter.dev/custom-fonts/#from-packages
